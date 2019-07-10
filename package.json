@@ -4,8 +4,12 @@
   "description": "analyze mm tags for given urls",
   "main": "index.js",
   "scripts": {
-    "test": "node ."
+    "test": "node .",
+    "start": "concurrently \"cd app && npm install && npm start\" \"cd server && npm install && npm run start:dev\""
   },
   "author": "Brandon Gates",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "concurrently": "^4.1.1"
+  }
 }

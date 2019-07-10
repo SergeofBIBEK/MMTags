@@ -7,7 +7,6 @@ export class AppController {
 
   @Post('test')
   getHello(@Body() body) {
-    console.log(body);
     return this.service.testURL(body.url);
   }
 }

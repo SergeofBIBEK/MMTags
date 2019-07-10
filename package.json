@@ -1,0 +1,14 @@
+{
+  "name": "mmtags",
+  "version": "1.0.0",
+  "description": "analyze mm tags for given urls",
+  "main": "index.js",
+  "scripts": {
+    "test": "node ."
+  },
+  "author": "Brandon Gates",
+  "license": "MIT",
+  "dependencies": {
+    "puppeteer": "^1.18.1"
+  }
+}

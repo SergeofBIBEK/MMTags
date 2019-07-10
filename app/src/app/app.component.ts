@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
+import { VersaTagService } from './versa-tag.service';
 
 @Component({
   selector: "app-root",
@@ -7,17 +7,11 @@ import { HttpClient } from "@angular/common/http";
   styleUrls: ["./app.component.scss"]
 })
 export class AppComponent implements OnInit {
-  title = "app";
 
-  constructor(private http: HttpClient) {}
+  constructor(private versaTagService: VersaTagService) {}
 
-  ngOnInit() {
-    this.http
-      .post("/api/test", {
-        url: "http://www.landrovercharlotte.com/financing/center.htm"
-      })
-      .subscribe(res => {
-        console.log(res);
-      });
+  async ngOnInit() {
+    //let results = await this.versaTagService.testVersaTag("http://www.landrovercharlotte.com/financing/center.htm");
+    //console.log('results: ', results);
   }
 }

@@ -1,3 +1,19 @@
 <mat-form-field>
-  <textarea matInput placeholder="URLs"></textarea>
+  <textarea matInput placeholder="URLs" [formControl]="urlInput"></textarea>
 </mat-form-field>
+
+<button mat-raised-button color="secondary" (click)="toggleLocked()">
+  {{ urlInput.enabled ? "Lock List" : "Unlock List" }}
+</button>
+
+<div *ngFor="let url of testList">
+  <div>URL: {{ url.url }}</div>
+  <div>Mapping Rule: {{ url.mappingRule }}</div>
+  <div>Status: {{ url.status }}</div>
+  <div>Results: {{ url.testResults | json }}</div>
+  <br />
+</div>
+
+<button mat-raised-button color="primary" (click)="startTesting()">
+  Start Test
+</button>

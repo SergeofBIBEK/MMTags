@@ -7,6 +7,12 @@ export class AppService {
     'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36';
 
   testURL(url) {
+    url = url.trim();
+
+    if (url.indexOf('http') !== 0) {
+      url = 'http://' + url;
+    }
+
     console.log('Beginning test of: ', url);
     return new Promise(async (resolve, reject) => {
       const browser = await puppeteer.launch();

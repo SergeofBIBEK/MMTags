@@ -4,7 +4,9 @@ import {
   MatFormFieldModule,
   MatInputModule,
   MatButtonModule,
-  MatToolbarModule
+  MatToolbarModule,
+  MatExpansionModule,
+  MatIconModule
 } from "@angular/material";
 import { BrowserModule } from "@angular/platform-browser";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
@@ -22,7 +24,9 @@ import { ReactiveFormsModule } from "@angular/forms";
     MatFormFieldModule,
     MatButtonModule,
     ReactiveFormsModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatExpansionModule,
+    MatIconModule
   ],
   providers: [VersaTagService],
   bootstrap: [AppComponent]

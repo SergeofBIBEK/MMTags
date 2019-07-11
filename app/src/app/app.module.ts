@@ -3,7 +3,8 @@ import { NgModule } from "@angular/core";
 import {
   MatFormFieldModule,
   MatInputModule,
-  MatButtonModule
+  MatButtonModule,
+  MatToolbarModule
 } from "@angular/material";
 import { BrowserModule } from "@angular/platform-browser";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
@@ -20,7 +21,8 @@ import { ReactiveFormsModule } from "@angular/forms";
     MatInputModule,
     MatFormFieldModule,
     MatButtonModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatToolbarModule
   ],
   providers: [VersaTagService],
   bootstrap: [AppComponent]

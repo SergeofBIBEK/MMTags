@@ -1,10 +1,31 @@
-<mat-form-field>
-  <textarea matInput placeholder="URLs" [formControl]="urlInput"></textarea>
-</mat-form-field>
+<mat-toolbar color="primary">
+  <span>VersaTag Tester</span>
+  <span class="spacer"></span>
+  <button mat-stroked-button (click)="startTesting()">
+    Start Test
+  </button>
+</mat-toolbar>
 
-<button mat-raised-button color="secondary" (click)="toggleLocked()">
-  {{ urlInput.enabled ? "Lock List" : "Unlock List" }}
-</button>
+<div class="input-container">
+  <mat-form-field appearance="outline" class="url-input">
+    <textarea
+      matInput
+      placeholder="URLs"
+      [formControl]="urlInput"
+      cdkTextareaAutosize
+      cdkAutosizeMinRows="2"
+      cdkAutosizeMaxRows="6"
+    ></textarea>
+  </mat-form-field>
+
+  <button
+    mat-raised-button
+    color="{{ urlInput.enabled ? 'primary' : 'warn' }}"
+    (click)="toggleLocked()"
+  >
+    {{ urlInput.enabled ? "Lock List" : "Unlock List" }}
+  </button>
+</div>
 
 <div *ngFor="let url of testList">
   <div>URL: {{ url.url }}</div>
@@ -13,7 +34,3 @@
   <div>Results: {{ url.testResults | json }}</div>
   <br />
 </div>
-
-<button mat-raised-button color="primary" (click)="startTesting()">
-  Start Test
-</button>

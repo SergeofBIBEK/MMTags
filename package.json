@@ -1,12 +1,18 @@
 {
   "name": "mmtags",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "analyze mm tags for given urls",
-  "main": "index.js",
+  "main": "./server/dist/main.js",
+  "bin": {
+    "versatag": "./server/dist/main.js"
+  },
   "scripts": {
     "test": "node .",
     "start": "npm install && concurrently \"cd app && npm install && npm start\" \"cd server && npm install && npm run start:dev\""
   },
+  "files": [
+    "/server/dist"
+  ],
   "author": "Brandon Gates",
   "license": "MIT",
   "dependencies": {

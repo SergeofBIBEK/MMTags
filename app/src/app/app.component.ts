@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
-import { VersaTagService } from "./versa-tag.service";
 import { FormControl } from "@angular/forms";
 import { debounceTime } from "rxjs/operators";
+import { VersaTagService } from "./versa-tag.service";
 
 @Component({
   selector: "app-root",
@@ -10,6 +10,7 @@ import { debounceTime } from "rxjs/operators";
 })
 export class AppComponent implements OnInit {
   public urlInput = new FormControl({ value: "", disabled: false });
+  public versaTagId = new FormControl();
   public testList = [];
   private testQueue = [];
   private inProgress = 0;
@@ -55,9 +56,25 @@ export class AppComponent implements OnInit {
       nextUrl.testResults = await this.versaTagService.testVersaTag(
         nextUrl.url
       );
+      console.log("nextUrl: ", nextUrl);
       nextUrl.status = 2;
       this.inProgress--;
       this.testNextUrl();
     }
+  }
+
+  getIssuesText(url) {
+    if (url.status !== 2) {
+      return "...";
+    }
+    return this.versaTagService.getIssuesText(url, this.versaTagId.value);
+  }
+
+  getPassText(url) {
+    if (url.status !== 2) {
+      return "Processing";
+    }
+
+    return this.versaTagService.isPass(url, this.versaTagId.value) ? "Pass" : "Fail";
   }
 }

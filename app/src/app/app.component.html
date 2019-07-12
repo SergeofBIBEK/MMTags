@@ -8,37 +8,99 @@
 
 <div class="input-container">
   <mat-form-field appearance="outline" class="url-input">
+    <mat-label>Test Data</mat-label>
     <textarea
       matInput
-      placeholder="URLs"
+      placeholder="URL + Mapping Rules"
       [formControl]="urlInput"
       cdkTextareaAutosize
       cdkAutosizeMinRows="2"
       cdkAutosizeMaxRows="6"
     ></textarea>
+    <mat-hint>URL followed by mapping rule</mat-hint>
   </mat-form-field>
 
-  <button
-    mat-raised-button
-    color="{{ urlInput.enabled ? 'primary' : 'warn' }}"
-    (click)="toggleLocked()"
-  >
+  <mat-form-field appearance="outline">
+    <mat-label>Versa Tag Id</mat-label>
+    <input matInput type="number" placeholder="Versa Tag Id" [formControl]="versaTagId">
+  </mat-form-field>
+
+  <button mat-raised-button color="{{ urlInput.enabled ? 'primary' : 'warn' }}" (click)="toggleLocked()">
     {{ urlInput.enabled ? "Lock List" : "Unlock List" }}
   </button>
 </div>
 
-<mat-accordion>
-  <mat-expansion-panel *ngFor="let url of testList">
-    <mat-expansion-panel-header>
-      <mat-panel-title>
-        {{ url.url }}
-      </mat-panel-title>
-      <mat-panel-description>
-        {{ url.status }}
-        <mat-icon>map</mat-icon>
-      </mat-panel-description>
-    </mat-expansion-panel-header>
+<mat-tab-group mat-stretch-tabs color="warn" backgroundColor="primary">
+  <mat-tab label="Details">
+    <mat-accordion>
+      <mat-expansion-panel *ngFor="let url of testList">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{ url.url }}
+          </mat-panel-title>
+          <mat-panel-description>
+            <div class="status">
+              {{ url.status === 0 ? "In Queue" : url.status === 1 ? "Processing" : "Complete" }}
+            </div>
+            <span class="spacer"></span>
+            <div class="results">
+              {{getPassText(url)}}
+            </div>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
 
-    <p>{{ url.testResults | json }}</p>
-  </mat-expansion-panel>
-</mat-accordion>
+        <div>{{getIssuesText(url)}}</div>
+
+        <div>Expected Mapping Rule: {{ url.mappingRule }}</div>
+        <div>Final URL: {{ url.testResults.finalURL }}</div>
+        <div>HTTP Status: {{ url.testResults.pageStatus }}</div>
+        <div>Versa Tags</div>
+        <table mat-table [dataSource]="url.testResults.versaTags">
+          <ng-container matColumnDef="versaTagId">
+            <th mat-header-cell *matHeaderCellDef>Versa Tag</th>
+            <td mat-cell *matCellDef="let versaTag">{{ versaTag.versaTagId }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="mappingRules">
+            <th mat-header-cell *matHeaderCellDef>Mapping Rules</th>
+            <td mat-cell *matCellDef="let versaTag">{{ versaTag.mappingRules }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="queryString">
+            <th mat-header-cell *matHeaderCellDef>Query String</th>
+            <td mat-cell *matCellDef="let versaTag">{{ versaTag.queryString }}</td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="['versaTagId', 'mappingRules', 'queryString']"></tr>
+          <tr mat-row *matRowDef="let row; columns: ['versaTagId', 'mappingRules', 'queryString']"></tr>
+        </table>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </mat-tab>
+  <mat-tab label="Report">
+    <table mat-table [dataSource]="testList">
+          <ng-container matColumnDef="result">
+            <th mat-header-cell *matHeaderCellDef>Result</th>
+            <td mat-cell *matCellDef="let url">{{ getPassText(url) }}</td>
+          </ng-container>
+          
+          <ng-container matColumnDef="issues">
+            <th mat-header-cell *matHeaderCellDef>Issues</th>
+            <td mat-cell *matCellDef="let url">{{ getIssuesText(url) }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="mappingRules">
+            <th mat-header-cell *matHeaderCellDef>Mapping Rules</th>
+            <td mat-cell *matCellDef="let url">{{ url.status === 2 ? url.testResults.versaTags[0].mappingRules : "" }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="queryString">
+            <th mat-header-cell *matHeaderCellDef>Query String</th>
+            <td mat-cell *matCellDef="let url">{{ url.status === 2 ? url.testResults.versaTags[0].queryString : "" }}</td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="['result', 'issues', 'mappingRules', 'queryString']"></tr>
+          <tr mat-row *matRowDef="let row; columns: ['result', 'issues', 'mappingRules', 'queryString']"></tr>
+        </table>
+  </mat-tab>
+</mat-tab-group>

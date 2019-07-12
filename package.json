@@ -1,6 +1,6 @@
 {
   "name": "mmtags",
-  "version": "1.0.2",
+  "version": "1.0.4",
   "description": "analyze mm tags for given urls",
   "main": "./server/dist/main.js",
   "bin": {
@@ -15,6 +15,15 @@
   ],
   "author": "Brandon Gates",
   "license": "MIT",
+  "dependencies": {
+    "@nestjs/common": "^6.0.0",
+    "@nestjs/core": "^6.0.0",
+    "@nestjs/platform-express": "^6.0.0",
+    "puppeteer": "^1.18.1",
+    "reflect-metadata": "^0.1.12",
+    "rimraf": "^2.6.2",
+    "rxjs": "^6.3.3"
+  },
   "devDependencies": {
     "concurrently": "^4.1.1"
   }

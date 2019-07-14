@@ -6,9 +6,11 @@ import { BrowserModule } from "@angular/platform-browser";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { AppComponent } from "./app.component";
 import { VersaTagService } from "./versa-tag.service";
+import { TitleBarComponent } from './title-bar/title-bar.component';
+import { UserInputComponent } from './user-input/user-input.component';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, TitleBarComponent, UserInputComponent],
   imports: [
     BrowserModule,
     HttpClientModule,

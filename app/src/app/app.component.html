@@ -1,34 +1,5 @@
-<mat-toolbar color="primary">
-  <span>VersaTag Tester</span>
-  <span class="spacer"></span>
-  <button mat-stroked-button (click)="startTesting()">
-    Start Test
-  </button>
-</mat-toolbar>
-
-<div class="input-container">
-  <mat-form-field appearance="outline" class="url-input">
-    <mat-label>Test Data</mat-label>
-    <textarea
-      matInput
-      placeholder="URL + Mapping Rules"
-      [formControl]="urlInput"
-      cdkTextareaAutosize
-      cdkAutosizeMinRows="2"
-      cdkAutosizeMaxRows="6"
-    ></textarea>
-    <mat-hint>URL followed by mapping rule</mat-hint>
-  </mat-form-field>
-
-  <mat-form-field appearance="outline">
-    <mat-label>Versa Tag Id</mat-label>
-    <input matInput type="number" placeholder="Versa Tag Id" [formControl]="versaTagId">
-  </mat-form-field>
-
-  <button mat-raised-button color="{{ urlInput.enabled ? 'primary' : 'warn' }}" (click)="toggleLocked()">
-    {{ urlInput.enabled ? "Lock List" : "Unlock List" }}
-  </button>
-</div>
+<app-title-bar (startTesting)="startTesting()"></app-title-bar>
+<app-user-input [urlInput]="urlInput" [versaTagId]="versaTagId"></app-user-input>
 
 <mat-tab-group mat-stretch-tabs color="warn" backgroundColor="primary">
   <mat-tab label="Details">

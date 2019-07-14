@@ -26,14 +26,6 @@ export class AppComponent implements OnInit {
     });
   }
 
-  toggleLocked() {
-    if (this.urlInput.disabled) {
-      this.urlInput.enable({ emitEvent: false });
-    } else {
-      this.urlInput.disable({ emitEvent: false });
-    }
-  }
-
   stopTesting() {
     //asdf
   }

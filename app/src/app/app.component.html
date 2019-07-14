@@ -1,4 +1,10 @@
-<app-title-bar (startTesting)="startTesting()"></app-title-bar>
+<div class="sticky">
+  <app-title-bar
+    [testingInProgress]="inProgress"
+    (startTesting)="startTesting()"
+    (stopTesting)="stopTesting()"
+  ></app-title-bar>
+</div>
 <app-user-input
   [urlInput]="urlInput"
   [versaTagId]="versaTagId"

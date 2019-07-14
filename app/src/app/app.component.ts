@@ -23,6 +23,14 @@ export class AppComponent implements OnInit {
         return { ...vt, status: 0, testResults: {} };
       });
     });
+
+    this.maxInProgress.valueChanges
+      .pipe(debounceTime(1000))
+      .subscribe(value => {
+        for (var i = this.inProgress; i < value; i++) {
+          this.testNextUrl();
+        }
+      });
   }
 
   stopTesting() {
@@ -33,14 +41,18 @@ export class AppComponent implements OnInit {
     this.stopTesting();
     this.urlInput.disable({ emitEvent: false });
     this.testQueue = this.testList.slice();
+    this.testQueue.forEach(url => {
+      url.status = 0;
+    });
 
-    for (var i = 0; i < this.maxInProgress.value; i++) {
+    for (var i = this.inProgress; i < this.maxInProgress.value; i++) {
       this.testNextUrl();
     }
   }
 
   retry(url) {
     this.testQueue.push(url);
+    url.status = 0;
 
     if (this.inProgress < this.maxInProgress.value) {
       this.testNextUrl();

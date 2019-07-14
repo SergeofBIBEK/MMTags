@@ -29,33 +29,43 @@
     <div>Final URL: {{ url.testResults.finalURL }}</div>
     <div>HTTP Status: {{ url.testResults.pageStatus }}</div>
     <div>Versa Tags</div>
-    <table mat-table [dataSource]="url.testResults.versaTags">
+    <mat-table [dataSource]="url.testResults.versaTags" class="vt-result">
       <ng-container matColumnDef="versaTagId">
-        <th mat-header-cell *matHeaderCellDef>Versa Tag</th>
-        <td mat-cell *matCellDef="let versaTag">{{ versaTag.versaTagId }}</td>
+        <mat-header-cell *matHeaderCellDef class="tag-id"
+          >Versa Tag</mat-header-cell
+        >
+        <mat-cell *matCellDef="let versaTag" class="tag-id">{{
+          versaTag.versaTagId
+        }}</mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="mappingRules">
-        <th mat-header-cell *matHeaderCellDef>Mapping Rules</th>
-        <td mat-cell *matCellDef="let versaTag">{{ versaTag.mappingRules }}</td>
+        <mat-header-cell *matHeaderCellDef class="mapping-rules"
+          >Mapping Rules</mat-header-cell
+        >
+        <mat-cell *matCellDef="let versaTag" class="mapping-rules">{{
+          versaTag.mappingRules
+        }}</mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="queryString">
-        <th mat-header-cell *matHeaderCellDef>Query String</th>
-        <td mat-cell *matCellDef="let versaTag">{{ versaTag.queryString }}</td>
+        <mat-header-cell *matHeaderCellDef class="query-string"
+          >Query String</mat-header-cell
+        >
+        <mat-cell *matCellDef="let versaTag" class="query-string">{{
+          versaTag.queryString
+        }}</mat-cell>
       </ng-container>
 
-      <tr
-        mat-header-row
+      <mat-header-row
         *matHeaderRowDef="['versaTagId', 'mappingRules', 'queryString']"
-      ></tr>
-      <tr
-        mat-row
+      ></mat-header-row>
+      <mat-row
         *matRowDef="
           let row;
           columns: ['versaTagId', 'mappingRules', 'queryString']
         "
-      ></tr>
-    </table>
+      ></mat-row>
+    </mat-table>
   </mat-expansion-panel>
 </mat-accordion>

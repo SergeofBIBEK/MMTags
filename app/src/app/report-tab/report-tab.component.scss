@@ -1,0 +1,27 @@
+.report {
+  .tested-url {
+    flex: 1;
+    word-break: break-all;
+  }
+
+  .tested-rule {
+    flex: 0.5;
+  }
+
+  .result {
+    flex: 0.5;
+  }
+
+  .issues {
+    flex: 1.5;
+  }
+
+  .mapping-rules {
+    flex: 1;
+  }
+
+  .query-string {
+    flex: 3;
+    word-break: break-all;
+  }
+}

@@ -81,6 +81,9 @@ export class AppService {
     let [, mappingRules = ''] = RuleHitRegex.exec(ruleHits) || [];
     let [, awaitClientHit = ''] = ClientHitRegex.exec(ruleHits) || [];
 
+    mappingRules = mappingRules.replace(/\,/g, ', ');
+    awaitClientHit = awaitClientHit.replace(/\,/g, ', ');
+
     return { versaTagId, mappingRules, awaitClientHit };
   }
 }

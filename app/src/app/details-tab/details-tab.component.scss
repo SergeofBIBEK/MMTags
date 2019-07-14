@@ -2,7 +2,27 @@
   flex: 1 1 auto;
 }
 
+.vt-result {
+  .tag-id {
+    flex: 0.5;
+  }
+
+  .mapping-rule {
+    flex: 1;
+  }
+
+  .query-string {
+    flex: 2;
+    word-break: break-all;
+  }
+}
+
 ::ng-deep {
+  .mat-header-cell,
+  .mat-cell {
+    padding: 10px 5px;
+  }
+
   .mat-expansion-panel {
     .mat-content {
       * {
@@ -11,6 +31,10 @@
         .retry-button {
           margin-right: 10px;
         }
+      }
+
+      .mat-expansion-panel-header-title {
+        width: 50%;
       }
     }
   }

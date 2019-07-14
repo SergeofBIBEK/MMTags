@@ -10,7 +10,8 @@ import {
   MatTableModule,
   MatTabsModule,
   MatToolbarModule,
-  MatProgressBarModule
+  MatProgressBarModule,
+  MatBadgeModule
 } from "@angular/material";
 import { BrowserModule } from "@angular/platform-browser";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
@@ -42,7 +43,8 @@ import { ReportTabComponent } from "./report-tab/report-tab.component";
     MatIconModule,
     MatTabsModule,
     MatTableModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    MatBadgeModule
   ],
   providers: [VersaTagService],
   bootstrap: [AppComponent]

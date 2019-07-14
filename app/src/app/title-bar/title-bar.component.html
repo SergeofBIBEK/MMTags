@@ -1,7 +1,11 @@
 <mat-toolbar color="primary">
   <span>VersaTag Tester</span>
   <span class="spacer"></span>
-  <button mat-stroked-button (click)="startTesting.emit()">
-    Start Test
+  <button
+    mat-flat-button
+    [color]="!testingInProgress ? 'accent' : 'warn'"
+    (click)="!testingInProgress ? startTesting.emit() : stopTesting.emit()"
+  >
+    {{ !testingInProgress ? "Start Test" : "Stop Test" }}
   </button>
 </mat-toolbar>

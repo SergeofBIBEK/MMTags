@@ -57,9 +57,9 @@ export class VersaTagService {
     }
 
     if (!noVT && multipleTags) {
-      text += `Multiple VersaTags fired on this page. The following VersaTag${versaTags.length > 0 ? "s" : ""} fired: ${versaTags
-        .map(response => response.versaTagId)
-        .join(", ")}. `;
+      text += `Multiple VersaTags fired on this page. The following VersaTag${
+        versaTags.length > 0 ? "s" : ""
+      } fired: ${versaTags.map(response => response.versaTagId).join(", ")}. `;
     }
 
     if (redirected) {
@@ -67,12 +67,12 @@ export class VersaTagService {
     }
 
     if (!noVT && !multipleTags && wrongVT) {
-      text += `Wrong VersaTag fired. The following VersaTag${versaTags.length > 0 ? "s" : ""} fired: ${versaTags
-        .map(response => response.versaTagId)
-        .join(", ")}. `;
+      text += `Wrong VersaTag fired. The following VersaTag${
+        versaTags.length > 0 ? "s" : ""
+      } fired: ${versaTags.map(response => response.versaTagId).join(", ")}. `;
     }
 
-    return text;
+    return text || "None";
   }
 
   isPass(url, expectedVersaTagId) {
@@ -118,10 +118,25 @@ export class VersaTagService {
     let [, finalDomain, finalPath, finalETC] = urlRegex.exec(final);
 
     return {
-      fullResult: originalDomain !== finalDomain || originalPath !== finalPath || originalETC !== finalETC,
-      domain: { original: originalDomain, final: finalDomain, result: originalDomain !== finalDomain },
-      path: { original: originalPath, final: finalPath, result: originalPath !== finalPath },
-      etc: { original: originalETC, final: finalETC, result: originalETC !== finalETC }
+      fullResult:
+        originalDomain !== finalDomain ||
+        originalPath !== finalPath ||
+        originalETC !== finalETC,
+      domain: {
+        original: originalDomain,
+        final: finalDomain,
+        result: originalDomain !== finalDomain
+      },
+      path: {
+        original: originalPath,
+        final: finalPath,
+        result: originalPath !== finalPath
+      },
+      etc: {
+        original: originalETC,
+        final: finalETC,
+        result: originalETC !== finalETC
+      }
     };
   }
 

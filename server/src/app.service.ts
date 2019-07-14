@@ -7,7 +7,7 @@ export class AppService {
     'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36';
 
   testURL(url) {
-    url = url.trim();
+    url = url.replace(/\*/g, '').trim();
 
     if (url.indexOf('http') !== 0) {
       url = 'http://' + url;
@@ -40,6 +40,7 @@ export class AppService {
 
         let pageResponse;
         let pageStatus;
+        let redirectChain;
 
         try {
           pageResponse = await page.goto(url, {
@@ -47,17 +48,22 @@ export class AppService {
             timeout: 90000,
           });
 
-          pageStatus = pageResponse.status();
+          pageStatus = pageResponse ? pageResponse.status() : 'Timeout';
+          redirectChain = pageResponse
+            .request()
+            .redirectChain()
+            .map(pageRequest => pageRequest.url());
         } catch (error) {
           console.log(error);
           pageStatus = '???';
+          redirectChain = [];
         }
 
         let finalURL = page.url();
 
         await browser.close();
 
-        resolve({ finalURL, pageStatus, versaTags });
+        resolve({ finalURL, pageStatus, versaTags, redirectChain });
       } catch (error) {
         reject(error);
       }

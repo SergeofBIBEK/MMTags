@@ -8,22 +8,27 @@ export class AppController {
   @Post('testVersaTag')
   async getHello(@Body() body) {
     let results = await this.service.testURL(body.url);
-    let { versaTags } = results as any;
+    let attempts = 0;
 
-    let error = versaTags.reduce((error, vt) => {
+    while (this.checkForBadVTResponse(results) && attempts < 10) {
+      console.log(
+        `Weird VT Response Error Happened for ${body.url}, attempt #${attempts +
+          1}`,
+      );
+      console.log('Retrying...');
+      results = await this.service.testURL(body.url);
+      attempts++;
+    }
+
+    return results;
+  }
+
+  checkForBadVTResponse(results) {
+    return results.versaTags.reduce((error, vt) => {
       if (!vt.versaTagId || error) {
         return true;
       }
       return false;
     }, false);
-
-    //Retry if error
-    if (error) {
-      console.log(`Weird VT Response Error Happened for ${body.url}`);
-      console.log('Retrying...');
-      results = await this.service.testURL(body.url);
-    }
-
-    return results;
   }
 }

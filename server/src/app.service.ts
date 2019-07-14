@@ -38,18 +38,26 @@ export class AppService {
           }
         });
 
-        let pageResponse = await page.goto(url, { waitUntil: 'networkidle2' });
+        let pageResponse;
+        let pageStatus;
+
+        try {
+          pageResponse = await page.goto(url, {
+            waitUntil: 'networkidle2',
+            timeout: 9000,
+          });
+
+          pageStatus = pageResponse.status();
+        } catch (error) {
+          console.log(error);
+          pageStatus = '???';
+        }
 
         let finalURL = page.url();
-        let pageStatus = pageResponse.status();
-        let redirectChain = pageResponse
-          .request()
-          .redirectChain()
-          .map(pageRequest => pageRequest.url());
 
         await browser.close();
 
-        resolve({ finalURL, pageStatus, redirectChain, versaTags });
+        resolve({ finalURL, pageStatus, versaTags });
       } catch (error) {
         reject(error);
       }

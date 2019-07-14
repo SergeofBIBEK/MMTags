@@ -1,4 +1,5 @@
 import { Component, Input, Output, EventEmitter } from "@angular/core";
+import { VersaTagService } from "../versa-tag.service";
 
 @Component({
   selector: "app-details-tab",
@@ -12,4 +13,6 @@ export class DetailsTabComponent {
   @Output() retry = new EventEmitter();
 
   public statusText = ["In Queue", "Processing", "Complete", "Error"];
+
+  constructor(public service: VersaTagService) {}
 }

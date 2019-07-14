@@ -14,7 +14,6 @@ export class AppComponent implements OnInit {
   private maxInProgress = new FormControl(5);
   public testList = [];
   private testQueue = [];
-  private inProgress = 0;
 
   constructor(private versaTagService: VersaTagService) {}
 
@@ -27,7 +26,7 @@ export class AppComponent implements OnInit {
   }
 
   stopTesting() {
-    //asdf
+    this.testQueue = [];
   }
 
   startTesting() {
@@ -50,8 +49,7 @@ export class AppComponent implements OnInit {
 
   async testNextUrl() {
     if (this.inProgress < this.maxInProgress.value && this.testQueue.length) {
-      this.inProgress++;
-      let nextUrl = this.testQueue.pop();
+      let nextUrl = this.testQueue.shift();
       nextUrl.status = 1;
       try {
         nextUrl.testResults = await this.versaTagService.testVersaTag(
@@ -62,7 +60,6 @@ export class AppComponent implements OnInit {
         nextUrl.status = 3;
       }
       console.log("nextUrl: ", nextUrl);
-      this.inProgress--;
       this.testNextUrl();
     }
   }
@@ -82,6 +79,10 @@ export class AppComponent implements OnInit {
     return this.versaTagService.isPass(url, this.versaTagId.value)
       ? "Pass"
       : "Fail";
+  }
+
+  get inProgress() {
+    return this.testList.filter(url => url.status === 1).length;
   }
 
   get totalTested() {

@@ -1,4 +1,4 @@
-import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import * as puppeteer from 'puppeteer';
 
 @Injectable()
@@ -62,7 +62,6 @@ export class AppService {
       url.indexOf('bs.serving-sys.com/Serving') > -1 &&
       url.indexOf(`cn=ot`) > -1
     ) {
-      console.log('VersaTag Detected');
       interceptedRequest.continue({ url: url + '&mmdebug=1' });
     } else {
       interceptedRequest.continue();

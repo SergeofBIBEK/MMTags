@@ -2,9 +2,17 @@
 <app-user-input
   [urlInput]="urlInput"
   [versaTagId]="versaTagId"
+  [maxInProgress]="maxInProgress"
 ></app-user-input>
 
-<mat-tab-group mat-stretch-tabs color="warn" backgroundColor="primary">
+<span>{{ totalTested }}/{{ totalToTest }} Processed</span>
+<mat-progress-bar
+  mode="determinate"
+  [value]="(totalTested / totalToTest) * 100"
+  color="accent"
+></mat-progress-bar>
+
+<mat-tab-group mat-stretch-tabs color="accent" backgroundColor="primary">
   <mat-tab label="Details">
     <app-details-tab
       [testList]="testList"

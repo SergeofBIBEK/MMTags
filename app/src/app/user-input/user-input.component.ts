@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from "@angular/core";
 
 @Component({
   selector: "app-user-input",
@@ -6,11 +6,11 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ["./user-input.component.scss"]
 })
 export class UserInputComponent implements OnInit {
-  @Input() urlInput
-  @Input() versaTagId
+  @Input() urlInput;
+  @Input() versaTagId;
+  @Input() maxInProgress;
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   toggleLocked() {
     if (this.urlInput.disabled) {

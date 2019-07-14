@@ -11,10 +11,12 @@ import { VersaTagService } from "./versa-tag.service";
 export class AppComponent implements OnInit {
   public urlInput = new FormControl({ value: "", disabled: false });
   public versaTagId = new FormControl();
+  private maxInProgress = new FormControl(5);
   public testList = [];
   private testQueue = [];
   private inProgress = 0;
-  private maxInProgress = 5;
+  public totalToTest = 0;
+  public totalTested = 0;
 
   constructor(private versaTagService: VersaTagService) {}
 
@@ -34,14 +36,15 @@ export class AppComponent implements OnInit {
     this.stopTesting();
     this.urlInput.disable({ emitEvent: false });
     this.testQueue = this.testList.slice();
+    this.totalToTest += this.testList.length;
 
-    for (var i = 0; i < this.maxInProgress; i++) {
+    for (var i = 0; i < this.maxInProgress.value; i++) {
       this.testNextUrl();
     }
   }
 
   async testNextUrl() {
-    if (this.inProgress < this.maxInProgress && this.testQueue.length) {
+    if (this.inProgress < this.maxInProgress.value && this.testQueue.length) {
       this.inProgress++;
       let nextUrl = this.testQueue.pop();
       nextUrl.status = 1;
@@ -51,6 +54,7 @@ export class AppComponent implements OnInit {
       console.log("nextUrl: ", nextUrl);
       nextUrl.status = 2;
       this.inProgress--;
+      this.totalTested++;
       this.testNextUrl();
     }
   }
@@ -67,6 +71,8 @@ export class AppComponent implements OnInit {
       return "Processing";
     }
 
-    return this.versaTagService.isPass(url, this.versaTagId.value) ? "Pass" : "Fail";
+    return this.versaTagService.isPass(url, this.versaTagId.value)
+      ? "Pass"
+      : "Fail";
   }
 }

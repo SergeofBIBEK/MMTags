@@ -14,10 +14,30 @@
 
   <mat-form-field appearance="outline">
     <mat-label>Versa Tag Id</mat-label>
-    <input matInput type="number" placeholder="Versa Tag Id" [formControl]="versaTagId">
+    <input
+      matInput
+      type="number"
+      placeholder="Versa Tag Id"
+      [formControl]="versaTagId"
+    />
   </mat-form-field>
 
-  <button mat-raised-button color="{{ urlInput.enabled ? 'primary' : 'warn' }}" (click)="toggleLocked()">
+  <mat-form-field appearance="outline">
+    <mat-label>Max In Progress</mat-label>
+    <input
+      matInput
+      type="number"
+      placeholder="Max In Progress"
+      [formControl]="maxInProgress"
+    />
+    <mat-hint>How many tags will process at the same time?</mat-hint>
+  </mat-form-field>
+
+  <button
+    mat-raised-button
+    color="{{ urlInput.enabled ? 'primary' : 'warn' }}"
+    (click)="toggleLocked()"
+  >
     {{ urlInput.enabled ? "Lock List" : "Unlock List" }}
   </button>
 </div>

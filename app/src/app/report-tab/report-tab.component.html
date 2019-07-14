@@ -1,4 +1,14 @@
 <table mat-table [dataSource]="testList">
+  <ng-container matColumnDef="url">
+    <th mat-header-cell *matHeaderCellDef>Result</th>
+    <td mat-cell *matCellDef="let url">{{ url.url }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="testedRule">
+    <th mat-header-cell *matHeaderCellDef>Result</th>
+    <td mat-cell *matCellDef="let url">{{ url.mappingRule }}</td>
+  </ng-container>
+
   <ng-container matColumnDef="result">
     <th mat-header-cell *matHeaderCellDef>Result</th>
     <td mat-cell *matCellDef="let url">{{ getPassText(url) }}</td>
@@ -25,13 +35,27 @@
 
   <tr
     mat-header-row
-    *matHeaderRowDef="['result', 'issues', 'mappingRules', 'queryString']"
+    *matHeaderRowDef="[
+      'url',
+      'testedRule',
+      'result',
+      'issues',
+      'mappingRules',
+      'queryString'
+    ]"
   ></tr>
   <tr
     mat-row
     *matRowDef="
       let row;
-      columns: ['result', 'issues', 'mappingRules', 'queryString']
+      columns: [
+        'url',
+        'testedRule',
+        'result',
+        'issues',
+        'mappingRules',
+        'queryString'
+      ]
     "
   ></tr>
 </table>

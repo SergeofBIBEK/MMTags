@@ -15,8 +15,6 @@ export class AppComponent implements OnInit {
   public testList = [];
   private testQueue = [];
   private inProgress = 0;
-  public totalToTest = 0;
-  public totalTested = 0;
 
   constructor(private versaTagService: VersaTagService) {}
 
@@ -36,9 +34,17 @@ export class AppComponent implements OnInit {
     this.stopTesting();
     this.urlInput.disable({ emitEvent: false });
     this.testQueue = this.testList.slice();
-    this.totalToTest += this.testList.length;
 
     for (var i = 0; i < this.maxInProgress.value; i++) {
+      this.testNextUrl();
+    }
+  }
+
+  retry(url) {
+    console.log(url);
+    this.testQueue.push(url);
+
+    if (this.inProgress < this.maxInProgress.value) {
       this.testNextUrl();
     }
   }
@@ -54,7 +60,6 @@ export class AppComponent implements OnInit {
       console.log("nextUrl: ", nextUrl);
       nextUrl.status = 2;
       this.inProgress--;
-      this.totalTested++;
       this.testNextUrl();
     }
   }
@@ -74,5 +79,9 @@ export class AppComponent implements OnInit {
     return this.versaTagService.isPass(url, this.versaTagId.value)
       ? "Pass"
       : "Fail";
+  }
+
+  get totalTested() {
+    return this.testList.filter(url => url.status === 2).length;
   }
 }

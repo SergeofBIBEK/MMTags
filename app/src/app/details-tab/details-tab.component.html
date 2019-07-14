@@ -2,6 +2,14 @@
   <mat-expansion-panel *ngFor="let url of testList">
     <mat-expansion-panel-header>
       <mat-panel-title>
+        <button
+          mat-mini-fab
+          color="primary"
+          class="retry-button"
+          (click)="$event.stopPropagation(); retry.emit(url)"
+        >
+          <mat-icon>refresh</mat-icon>
+        </button>
         {{ url.url }}
       </mat-panel-title>
       <mat-panel-description>

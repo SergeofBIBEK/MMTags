@@ -1,4 +1,4 @@
-import { Component, Input } from "@angular/core";
+import { Component, Input, Output, EventEmitter } from "@angular/core";
 
 @Component({
   selector: "app-details-tab",
@@ -9,4 +9,5 @@ export class DetailsTabComponent {
   @Input() testList;
   @Input() getPassText;
   @Input() getIssuesText;
+  @Output() retry = new EventEmitter();
 }

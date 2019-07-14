@@ -1,3 +1,17 @@
 .spacer {
   flex: 1 1 auto;
 }
+
+::ng-deep {
+  .mat-expansion-panel {
+    .mat-content {
+      * {
+        align-items: center;
+
+        .retry-button {
+          margin-right: 10px;
+        }
+      }
+    }
+  }
+}

@@ -5,10 +5,10 @@
   [maxInProgress]="maxInProgress"
 ></app-user-input>
 
-<span>{{ totalTested }}/{{ totalToTest }} Processed</span>
+<span>{{ totalTested }}/{{ testList.length }} Processed</span>
 <mat-progress-bar
   mode="determinate"
-  [value]="(totalTested / totalToTest) * 100"
+  [value]="(totalTested / testList.length) * 100"
   color="accent"
 ></mat-progress-bar>
 
@@ -16,15 +16,16 @@
   <mat-tab label="Details">
     <app-details-tab
       [testList]="testList"
-      [getIssuesText]="getIssuesText"
-      [getPassText]="getPassText"
+      [getIssuesText]="getIssuesText.bind(this)"
+      [getPassText]="getPassText.bind(this)"
+      (retry)="retry($event)"
     ></app-details-tab>
   </mat-tab>
   <mat-tab label="Report">
     <app-report-tab
       [testList]="testList"
-      [getIssuesText]="getIssuesText"
-      [getPassText]="getPassText"
+      [getIssuesText]="getIssuesText.bind(this)"
+      [getPassText]="getPassText.bind(this)"
     ></app-report-tab>
   </mat-tab>
 </mat-tab-group>

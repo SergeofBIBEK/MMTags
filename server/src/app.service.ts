@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import * as puppeteer from 'puppeteer';
 
 @Injectable()
@@ -15,40 +15,44 @@ export class AppService {
 
     console.log('Beginning test of: ', url);
     return new Promise(async (resolve, reject) => {
-      const browser = await puppeteer.launch();
-      const page = await browser.newPage();
-      await page.setRequestInterception(true);
-      await page.setUserAgent(this.userAgent);
+      try {
+        const browser = await puppeteer.launch();
+        const page = await browser.newPage();
+        await page.setRequestInterception(true);
+        await page.setUserAgent(this.userAgent);
 
-      let versaTags = [];
+        let versaTags = [];
 
-      page.on('request', this.appendMMDebug);
+        page.on('request', this.appendMMDebug);
 
-      page.on('response', async response => {
-        let url = response.url();
-        let queryString = url.substring(url.indexOf('?') + 1);
+        page.on('response', async response => {
+          let url = response.url();
+          let queryString = url.substring(url.indexOf('?') + 1);
 
-        if (url.indexOf('bs.serving-sys.com/Serving?cn=ot') > -1) {
-          versaTags.push({
-            url,
-            queryString,
-            ...this.parseBody(await response.text()),
-          });
-        }
-      });
+          if (url.indexOf('bs.serving-sys.com/Serving?cn=ot') > -1) {
+            versaTags.push({
+              url,
+              queryString,
+              ...this.parseBody(await response.text()),
+            });
+          }
+        });
 
-      let pageResponse = await page.goto(url, { waitUntil: 'networkidle2' });
+        let pageResponse = await page.goto(url, { waitUntil: 'networkidle2' });
 
-      let finalURL = page.url();
-      let pageStatus = pageResponse.status();
-      let redirectChain = pageResponse
-        .request()
-        .redirectChain()
-        .map(pageRequest => pageRequest.url());
+        let finalURL = page.url();
+        let pageStatus = pageResponse.status();
+        let redirectChain = pageResponse
+          .request()
+          .redirectChain()
+          .map(pageRequest => pageRequest.url());
 
-      await browser.close();
+        await browser.close();
 
-      resolve({ finalURL, pageStatus, redirectChain, versaTags });
+        resolve({ finalURL, pageStatus, redirectChain, versaTags });
+      } catch (error) {
+        reject(error);
+      }
     });
   }
 

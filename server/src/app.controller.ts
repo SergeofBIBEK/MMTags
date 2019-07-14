@@ -1,4 +1,10 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Post,
+  HttpException,
+  HttpStatus,
+} from '@nestjs/common';
 import { AppService } from './app.service';
 
 @Controller('api')
@@ -7,6 +13,10 @@ export class AppController {
 
   @Post('testVersaTag')
   getHello(@Body() body) {
-    return this.service.testURL(body.url);
+    try {
+      return this.service.testURL(body.url);
+    } catch (error) {
+      throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
   }
 }

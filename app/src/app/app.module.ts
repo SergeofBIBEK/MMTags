@@ -8,9 +8,11 @@ import { AppComponent } from "./app.component";
 import { VersaTagService } from "./versa-tag.service";
 import { TitleBarComponent } from './title-bar/title-bar.component';
 import { UserInputComponent } from './user-input/user-input.component';
+import { DetailsTabComponent } from './details-tab/details-tab.component';
+import { ReportTabComponent } from './report-tab/report-tab.component';
 
 @NgModule({
-  declarations: [AppComponent, TitleBarComponent, UserInputComponent],
+  declarations: [AppComponent, TitleBarComponent, UserInputComponent, DetailsTabComponent, ReportTabComponent],
   imports: [
     BrowserModule,
     HttpClientModule,

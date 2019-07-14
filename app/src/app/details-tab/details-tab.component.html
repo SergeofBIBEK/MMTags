@@ -1,0 +1,59 @@
+<mat-accordion>
+  <mat-expansion-panel *ngFor="let url of testList">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        {{ url.url }}
+      </mat-panel-title>
+      <mat-panel-description>
+        <div class="status">
+          {{
+            url.status === 0
+              ? "In Queue"
+              : url.status === 1
+              ? "Processing"
+              : "Complete"
+          }}
+        </div>
+        <span class="spacer"></span>
+        <div class="results">
+          {{ getPassText(url) }}
+        </div>
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+
+    <div>{{ getIssuesText(url) }}</div>
+
+    <div>Expected Mapping Rule: {{ url.mappingRule }}</div>
+    <div>Final URL: {{ url.testResults.finalURL }}</div>
+    <div>HTTP Status: {{ url.testResults.pageStatus }}</div>
+    <div>Versa Tags</div>
+    <table mat-table [dataSource]="url.testResults.versaTags">
+      <ng-container matColumnDef="versaTagId">
+        <th mat-header-cell *matHeaderCellDef>Versa Tag</th>
+        <td mat-cell *matCellDef="let versaTag">{{ versaTag.versaTagId }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="mappingRules">
+        <th mat-header-cell *matHeaderCellDef>Mapping Rules</th>
+        <td mat-cell *matCellDef="let versaTag">{{ versaTag.mappingRules }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="queryString">
+        <th mat-header-cell *matHeaderCellDef>Query String</th>
+        <td mat-cell *matCellDef="let versaTag">{{ versaTag.queryString }}</td>
+      </ng-container>
+
+      <tr
+        mat-header-row
+        *matHeaderRowDef="['versaTagId', 'mappingRules', 'queryString']"
+      ></tr>
+      <tr
+        mat-row
+        *matRowDef="
+          let row;
+          columns: ['versaTagId', 'mappingRules', 'queryString']
+        "
+      ></tr>
+    </table>
+  </mat-expansion-panel>
+</mat-accordion>

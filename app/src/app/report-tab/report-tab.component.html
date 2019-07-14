@@ -34,7 +34,7 @@
       >Mapping Rules</mat-header-cell
     >
     <mat-cell *matCellDef="let url" class="mapping-rules">
-      {{ url.status === 2 ? url.testResults.versaTags[0].mappingRules : "" }}
+      {{ url.status === 2 ? url.testResults.versaTags[0]?.mappingRules : "" }}
     </mat-cell>
   </ng-container>
 
@@ -43,7 +43,7 @@
       >Query String</mat-header-cell
     >
     <mat-cell *matCellDef="let url" class="query-string">
-      {{ url.status === 2 ? url.testResults.versaTags[0].queryString : "" }}
+      {{ url.status === 2 ? url.testResults.versaTags[0]?.queryString : "" }}
     </mat-cell>
   </ng-container>
 

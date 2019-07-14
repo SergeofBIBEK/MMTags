@@ -6,18 +6,22 @@
 
   .tested-rule {
     flex: 0.5;
+    word-break: break-all;
   }
 
   .result {
     flex: 0.5;
+    word-break: break-all;
   }
 
   .issues {
     flex: 1.5;
+    word-break: break-all;
   }
 
   .mapping-rules {
     flex: 1;
+    word-break: break-all;
   }
 
   .query-string {

@@ -44,7 +44,7 @@ export class AppService {
         try {
           pageResponse = await page.goto(url, {
             waitUntil: 'networkidle2',
-            timeout: 9000,
+            timeout: 90000,
           });
 
           pageStatus = pageResponse.status();

@@ -41,7 +41,6 @@ export class AppComponent implements OnInit {
   }
 
   retry(url) {
-    console.log(url);
     this.testQueue.push(url);
 
     if (this.inProgress < this.maxInProgress.value) {
@@ -54,11 +53,15 @@ export class AppComponent implements OnInit {
       this.inProgress++;
       let nextUrl = this.testQueue.pop();
       nextUrl.status = 1;
-      nextUrl.testResults = await this.versaTagService.testVersaTag(
-        nextUrl.url
-      );
+      try {
+        nextUrl.testResults = await this.versaTagService.testVersaTag(
+          nextUrl.url
+        );
+        nextUrl.status = 2;
+      } catch (error) {
+        nextUrl.status = 3;
+      }
       console.log("nextUrl: ", nextUrl);
-      nextUrl.status = 2;
       this.inProgress--;
       this.testNextUrl();
     }
@@ -73,7 +76,7 @@ export class AppComponent implements OnInit {
 
   getPassText(url) {
     if (url.status !== 2) {
-      return "Processing";
+      return "...";
     }
 
     return this.versaTagService.isPass(url, this.versaTagId.value)
@@ -82,6 +85,6 @@ export class AppComponent implements OnInit {
   }
 
   get totalTested() {
-    return this.testList.filter(url => url.status === 2).length;
+    return this.testList.filter(url => url.status >= 2).length;
   }
 }

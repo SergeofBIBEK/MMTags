@@ -10,4 +10,6 @@ export class DetailsTabComponent {
   @Input() getPassText;
   @Input() getIssuesText;
   @Output() retry = new EventEmitter();
+
+  public statusText = ["In Queue", "Processing", "Complete", "Error"];
 }

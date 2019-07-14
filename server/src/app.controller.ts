@@ -13,10 +13,6 @@ export class AppController {
 
   @Post('testVersaTag')
   getHello(@Body() body) {
-    try {
-      return this.service.testURL(body.url);
-    } catch (error) {
-      throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);
-    }
+    return this.service.testURL(body.url);
   }
 }

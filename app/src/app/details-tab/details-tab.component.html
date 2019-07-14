@@ -14,13 +14,7 @@
       </mat-panel-title>
       <mat-panel-description>
         <div class="status">
-          {{
-            url.status === 0
-              ? "In Queue"
-              : url.status === 1
-              ? "Processing"
-              : "Complete"
-          }}
+          {{ statusText[url.status] }}
         </div>
         <span class="spacer"></span>
         <div class="results">

@@ -51,4 +51,4 @@ import { ReportTabComponent } from "./report-tab/report-tab.component";
 })
 export class AppModule {}
 
-//TODO: Redirect Override, Retry all fails, styling
+//TODO: Redirect Override, styling, optimization, auto-tune max number, skip entered rule, click stuff

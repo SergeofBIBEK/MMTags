@@ -18,34 +18,72 @@
         </div>
         <span class="spacer"></span>
         <div class="results">
-          {{ getPassText(url) }}
+          <span
+            class="pill blue"
+            [class.red]="!service.isPass(url, versaTagId)"
+          >
+            {{ getPassText(url) }}
+          </span>
         </div>
       </mat-panel-description>
     </mat-expansion-panel-header>
 
-    <div>{{ getIssuesText(url) }}</div>
+    <div style="margin: 10px 0px;">
+      Issues:
+      <span class="pill blue" [class.red]="!service.isPass(url, versaTagId)">
+        {{ getIssuesText(url) }}
+      </span>
+    </div>
 
-    <div>Expected Mapping Rule: {{ url.mappingRule }}</div>
-    <div>Final URL: {{ url.testResults.finalURL }}</div>
-    <div>HTTP Status: {{ url.testResults.pageStatus }}</div>
-    <div>Versa Tags</div>
+    <div>
+      Expected Mapping Rule: {{ url.mappingRule }}
+      <span
+        class="pill green"
+        [class.red]="!service.isMappingRuleActivated(url)"
+      >
+        {{
+          service.isMappingRuleActivated(url) ? "Activated" : "Not Activated"
+        }}
+      </span>
+    </div>
+    <div>
+      Final URL: {{ url.testResults.finalURL }}
+      <span class="pill red" *ngIf="service.isRedirect(url).fullResult">
+        Redirected
+      </span>
+    </div>
+    <div>
+      HTTP Status: {{ url.testResults.pageStatus }}
+      <span class="pill red" *ngIf="service.is404(url)"
+        >Page has 404 error</span
+      >
+    </div>
+    <div>
+      Versa Tags
+      <span class="pill red" *ngIf="!url.testResults?.versaTags?.length"
+        >No VersaTag Fired</span
+      >
+      <span class="pill red" *ngIf="service.isMultipleTags(url)"
+        >Multiple VersaTags Fired</span
+      >
+    </div>
     <mat-table [dataSource]="url.testResults.versaTags" class="vt-result">
       <ng-container matColumnDef="versaTagId">
-        <mat-header-cell *matHeaderCellDef class="tag-id"
-          >Versa Tag</mat-header-cell
-        >
-        <mat-cell *matCellDef="let versaTag" class="tag-id">{{
-          versaTag.versaTagId
-        }}</mat-cell>
+        <mat-header-cell *matHeaderCellDef class="tag-id">
+          Versa Tag
+        </mat-header-cell>
+        <mat-cell *matCellDef="let versaTag" class="tag-id">
+          {{ versaTag.versaTagId }}
+        </mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="mappingRules">
-        <mat-header-cell *matHeaderCellDef class="mapping-rules"
-          >Mapping Rules</mat-header-cell
-        >
-        <mat-cell *matCellDef="let versaTag" class="mapping-rules">{{
-          versaTag.mappingRules
-        }}</mat-cell>
+        <mat-header-cell *matHeaderCellDef class="mapping-rules">
+          Mapping Rules
+        </mat-header-cell>
+        <mat-cell *matCellDef="let versaTag" class="mapping-rules">
+          {{ versaTag.mappingRules }}
+        </mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="queryString">

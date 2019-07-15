@@ -90,6 +90,10 @@ export class VersaTagService {
       testResults: { versaTags }
     } = url;
 
+    if (!versaTags) {
+      return false;
+    }
+
     let matches = false;
     versaTags.forEach(item => {
       if (item.versaTagId == expectedVersaTagId) {
@@ -101,14 +105,26 @@ export class VersaTagService {
   }
 
   isMultipleTags(url) {
+    if (!url || !url.testResults || !url.testResults.versaTags) {
+      return false;
+    }
+
     return url.testResults.versaTags.length > 1;
   }
 
   is404(url) {
+    if (!url || !url.testResults || !url.testResults.pageStatus) {
+      return false;
+    }
+
     return url.testResults.pageStatus === 404;
   }
 
   isRedirect(url) {
+    if (!url || !url.url || !url.testResults || !url.testResults.finalURL) {
+      return { fullResult: false, domain: false, path: false, etc: false };
+    }
+
     let orignal = url.url.trim().replace("*", "");
     let final = url.testResults.finalURL.trim().replace("*", "");
 
@@ -146,11 +162,12 @@ export class VersaTagService {
     } = url;
 
     let ruleMatch = false;
-    versaTags.forEach(response => {
-      if (response.mappingRules.indexOf(url.mappingRule) > -1) {
-        ruleMatch = true;
-      }
-    });
+    versaTags &&
+      versaTags.forEach(response => {
+        if (response.mappingRules.indexOf(url.mappingRule) > -1) {
+          ruleMatch = true;
+        }
+      });
 
     return ruleMatch;
   }

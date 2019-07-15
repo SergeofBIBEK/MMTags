@@ -9,4 +9,13 @@
   .query-string {
     word-break: break-all;
   }
+
+  td.result,
+  td.issues {
+    color: red;
+
+    &.pass {
+      color: blue;
+    }
+  }
 }

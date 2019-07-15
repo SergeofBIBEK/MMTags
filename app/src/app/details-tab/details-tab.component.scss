@@ -2,6 +2,26 @@
   flex: 1 1 auto;
 }
 
+.pill {
+  padding: 3px 10px;
+  border-radius: 20px;
+}
+
+.blue {
+  color: white;
+  background-color: blue;
+}
+
+.green {
+  color: white;
+  background-color: green;
+}
+
+.red.red {
+  color: white;
+  background-color: red;
+}
+
 .vt-result {
   .tag-id {
     flex: 0.5;

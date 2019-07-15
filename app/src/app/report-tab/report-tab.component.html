@@ -13,14 +13,24 @@
 
   <ng-container matColumnDef="result">
     <th mat-header-cell *matHeaderCellDef class="result">Result</th>
-    <td mat-cell *matCellDef="let url" class="result">
+    <td
+      mat-cell
+      *matCellDef="let url"
+      class="result"
+      [class.pass]="getPassText(url) === 'Pass'"
+    >
       {{ getPassText(url) }}
     </td>
   </ng-container>
 
   <ng-container matColumnDef="issues">
     <th mat-header-cell *matHeaderCellDef class="issues">Issues</th>
-    <td mat-cell *matCellDef="let url" class="issues">
+    <td
+      mat-cell
+      *matCellDef="let url"
+      class="issues"
+      [class.pass]="getPassText(url) === 'Pass'"
+    >
       {{ getIssuesText(url) }}
     </td>
   </ng-container>

@@ -10,6 +10,7 @@ export class DetailsTabComponent {
   @Input() testList;
   @Input() getPassText;
   @Input() getIssuesText;
+  @Input() versaTagId;
   @Output() retry = new EventEmitter();
 
   public statusText = ["In Queue", "Processing", "Complete", "Error"];

@@ -1,31 +1,12 @@
 .report {
-  .tested-url {
-    flex: 1;
-    word-break: break-all;
+  padding: 10px;
+
+  td {
+    padding: 3px;
   }
 
-  .tested-rule {
-    flex: 0.5;
-    word-break: break-all;
-  }
-
-  .result {
-    flex: 0.5;
-    word-break: break-all;
-  }
-
-  .issues {
-    flex: 1.5;
-    word-break: break-all;
-  }
-
-  .mapping-rules {
-    flex: 1;
-    word-break: break-all;
-  }
-
+  .tested-url,
   .query-string {
-    flex: 3;
     word-break: break-all;
   }
 }

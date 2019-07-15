@@ -1,16 +1,15 @@
-import { Component, Input, OnInit } from "@angular/core";
+import { Component, Input, OnInit, Output, EventEmitter } from "@angular/core";
 
 @Component({
   selector: "app-user-input",
   templateUrl: "./user-input.component.html",
   styleUrls: ["./user-input.component.scss"]
 })
-export class UserInputComponent implements OnInit {
+export class UserInputComponent {
   @Input() urlInput;
   @Input() versaTagId;
   @Input() maxInProgress;
-
-  ngOnInit() {}
+  @Output() retryFails = new EventEmitter();
 
   toggleLocked() {
     if (this.urlInput.disabled) {

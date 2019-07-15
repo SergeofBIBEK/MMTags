@@ -34,6 +34,10 @@
     <mat-hint>How many tags will process at the same time?</mat-hint>
   </mat-form-field>
 
+  <button mat-raised-button color="primary" (click)="retryFails.emit()">
+    Retry Fails
+  </button>
+
   <button
     mat-raised-button
     color="{{ urlInput.enabled ? 'primary' : 'warn' }}"

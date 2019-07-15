@@ -9,6 +9,7 @@
   [urlInput]="urlInput"
   [versaTagId]="versaTagId"
   [maxInProgress]="maxInProgress"
+  (retryFails)="retryAllFails()"
 ></app-user-input>
 
 <span>{{ totalTested }}/{{ testList.length }} Processed</span>

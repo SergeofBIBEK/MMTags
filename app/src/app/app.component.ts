@@ -59,6 +59,23 @@ export class AppComponent implements OnInit {
     }
   }
 
+  retryAllFails() {
+    this.testQueue = [
+      ...this.testQueue,
+      ...this.testList.filter(url => {
+        let retry = !this.versaTagService.isPass(url, this.versaTagId.value);
+        if (retry) {
+          url.status = 0;
+        }
+        return retry;
+      })
+    ];
+
+    for (var i = this.inProgress; i < this.maxInProgress.value; i++) {
+      this.testNextUrl();
+    }
+  }
+
   async testNextUrl() {
     if (this.inProgress < this.maxInProgress.value && this.testQueue.length) {
       let nextUrl = this.testQueue.shift();

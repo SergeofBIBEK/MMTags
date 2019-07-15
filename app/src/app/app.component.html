@@ -23,8 +23,8 @@
   <mat-tab label="Details">
     <app-details-tab
       [testList]="testList"
-      [getIssuesText]="getIssuesText.bind(this)"
-      [getPassText]="getPassText.bind(this)"
+      [getIssuesText]="getIssuesTextBound"
+      [getPassText]="getPassTextBound"
       [versaTagId]="versaTagId.value"
       (retry)="retry($event)"
     ></app-details-tab>
@@ -32,8 +32,8 @@
   <mat-tab label="Report">
     <app-report-tab
       [testList]="testList"
-      [getIssuesText]="getIssuesText.bind(this)"
-      [getPassText]="getPassText.bind(this)"
+      [getIssuesText]="getIssuesTextBound"
+      [getPassText]="getPassTextBound"
     ></app-report-tab>
   </mat-tab>
 </mat-tab-group>

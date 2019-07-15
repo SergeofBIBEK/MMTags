@@ -7,6 +7,6 @@ import { Component, Input } from "@angular/core";
 })
 export class ReportTabComponent {
   @Input() testList;
-  @Input() getPassText;
-  @Input() getIssuesText;
+  @Input() getPassText: () => any;
+  @Input() getIssuesText: () => any;
 }

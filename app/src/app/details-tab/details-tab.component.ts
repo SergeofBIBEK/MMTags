@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from "@angular/core";
+import { Component, EventEmitter, Input, Output } from "@angular/core";
 import { VersaTagService } from "../versa-tag.service";
 
 @Component({
@@ -8,8 +8,8 @@ import { VersaTagService } from "../versa-tag.service";
 })
 export class DetailsTabComponent {
   @Input() testList;
-  @Input() getPassText;
-  @Input() getIssuesText;
+  @Input() getPassText: () => any;
+  @Input() getIssuesText: () => any;
   @Input() versaTagId;
   @Output() retry = new EventEmitter();
 

@@ -11,7 +11,7 @@ import { VersaTagService } from "./versa-tag.service";
 export class AppComponent implements OnInit {
   public urlInput = new FormControl({ value: "", disabled: false });
   public versaTagId = new FormControl();
-  private maxInProgress = new FormControl(5);
+  public maxInProgress = new FormControl(5);
   public testList = [];
   private testQueue = [];
 
@@ -99,6 +99,9 @@ export class AppComponent implements OnInit {
     }
     return this.versaTagService.getIssuesText(url, this.versaTagId.value);
   }
+
+  getIssuesTextBound = this.getIssuesText.bind(this);
+  getPassTextBound = this.getPassText.bind(this);
 
   getPassText(url) {
     if (url.status !== 2) {

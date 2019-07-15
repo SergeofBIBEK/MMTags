@@ -1,6 +1,6 @@
 {
   "name": "mmtags",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "analyze mm tags for given urls",
   "main": "./server/dist/main.js",
   "bin": {
